@@ -23,6 +23,14 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("This is a link node", TextType.LINK)
         self.assertEqual(node.url, None)
 
+    def test_repr(self):
+        node = TextNode(
+            "This is a text node", TextType.NORMAL_TEXT, "https://www.boot.dev"
+        )
+        self.assertEqual(
+            "TextNode(This is a text node, normal, https://www.boot.dev)", repr(node)
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
