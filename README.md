@@ -11,12 +11,12 @@
 To start first clone the repository:
 
 ```sh
-git clone https://github.com/MoXcz/bookbot.git --depth 1
+git clone https://github.com/MoXcz/static-site-generator.git --depth 1
 ```
 
-After that just run the program using the python interpreter:
+After that just run the program using `main.sh`:
 
 ```python
-python3 main.py
+./main.sh
 ```
 
