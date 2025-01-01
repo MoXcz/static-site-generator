@@ -45,6 +45,10 @@ class TestHTMLNode(unittest.TestCase):
             '<a href="https://www.google.com">Click me!</a>', node.to_html()
         )
 
+    def test_to_html_no_children_2(self):
+        node = LeafNode("a", "Click me!")
+        self.assertEqual("<a>Click me!</a>", node.to_html())
+
     def test_repr_no_children(self):
         node = LeafNode(
             "p",
