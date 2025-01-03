@@ -55,3 +55,26 @@ def text_node_to_html_node(text_node):
             )
         case _:
             raise ValueError(f"Invalid text node type: {text_node.text_type}")
+
+
+def split_nodes_delimiter(old_nodes, delimiter, text_type):
+    if text_type is TextType.NORMAL_TEXT:
+        return old_nodes
+    new_nodes = []
+    for node in old_nodes:
+        if node.text_type is not TextType.NORMAL_TEXT:
+            new_nodes.append(node)
+            continue
+        text_list = node.text.split(delimiter)
+        if len(text_list) % 2 == 0:
+            raise Exception(
+                f"Delimter Error: The text could not be delmited with the provided delimiter: {delimiter}"
+            )
+        for i in range(len(text_list)):
+            if text_list[i] == "":
+                continue
+            if i % 2 == 0:
+                new_nodes.append(TextNode(text_list[i], TextType.NORMAL_TEXT))
+            else:
+                new_nodes.append(TextNode(text_list[i], text_type))
+    return new_nodes
