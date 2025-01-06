@@ -90,6 +90,10 @@ def split_nodes_image(old_nodes):
             continue
         for image in extracted_images:
             text_list = node.text.split(f"![{image[0]}]({image[1]})")
+            if len(text_list) != 2:
+                raise ValueError(
+                    f"Invalid markdown, error with an image section in: {text_list}"
+                )
             if text_list[0] != "":
                 new_nodes.append(TextNode(text_list[0], TextType.NORMAL_TEXT))
             new_nodes.append(TextNode(image[0], TextType.IMAGE, image[1]))
@@ -107,6 +111,10 @@ def split_nodes_link(old_nodes):
             continue
         for link in extracted_links:
             text_list = node.text.split(f"[{link[0]}]({link[1]})")
+            if len(text_list) != 2:
+                raise ValueError(
+                    f"Invalid markdown, error with a link section in: {text_list}"
+                )
             if text_list[0] != "":
                 new_nodes.append(TextNode(text_list[0], TextType.NORMAL_TEXT))
             new_nodes.append(TextNode(link[0], TextType.LINK, link[1]))
