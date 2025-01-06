@@ -98,6 +98,8 @@ def split_nodes_image(old_nodes):
                 new_nodes.append(TextNode(text_list[0], TextType.NORMAL_TEXT))
             new_nodes.append(TextNode(image[0], TextType.IMAGE, image[1]))
             node.text = text_list[1]
+        if node.text != "":
+            new_nodes.append(TextNode(node.text, TextType.NORMAL_TEXT))
 
     return new_nodes
 
