@@ -7,6 +7,7 @@ from textnode import (
     split_nodes_image,
     split_nodes_link,
     text_node_to_html_node,
+    text_to_textnodes,
 )
 
 
@@ -206,6 +207,29 @@ class TestSplitNodes(unittest.TestCase):
                 TextNode(". Great isn't?", TextType.NORMAL_TEXT),
             ],
             new_nodes,
+        )
+
+
+class TestTextToTextnodes(unittest.TestCase):
+    def test_text_with_all_delimiters(self):
+        text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        nodes = text_to_textnodes(text)
+        self.assertEqual(
+            nodes,
+            [
+                TextNode("This is ", TextType.NORMAL_TEXT),
+                TextNode("text", TextType.BOLD_TEXT),
+                TextNode(" with an ", TextType.NORMAL_TEXT),
+                TextNode("italic", TextType.ITALIC_TEXT),
+                TextNode(" word and a ", TextType.NORMAL_TEXT),
+                TextNode("code block", TextType.CODE_TEXT),
+                TextNode(" and an ", TextType.NORMAL_TEXT),
+                TextNode(
+                    "obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"
+                ),
+                TextNode(" and a ", TextType.NORMAL_TEXT),
+                TextNode("link", TextType.LINK, "https://boot.dev"),
+            ],
         )
 
 
