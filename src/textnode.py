@@ -1,5 +1,6 @@
 from enum import Enum
 
+from extract_markdown import extract_markdown_images, extract_markdown_links
 from htmlnode import LeafNode
 
 
@@ -77,4 +78,40 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
                 new_nodes.append(TextNode(text_list[i], TextType.NORMAL_TEXT))
             else:
                 new_nodes.append(TextNode(text_list[i], text_type))
+    return new_nodes
+
+
+def split_nodes_image(old_nodes):
+    new_nodes = []
+    for node in old_nodes:
+        extracted_images = extract_markdown_images(node.text)
+        if not extracted_images:
+            new_nodes.append(node)
+            continue
+        for image in extracted_images:
+            text_list = node.text.split(f"![{image[0]}]({image[1]})")
+            if text_list[0] != "":
+                new_nodes.append(TextNode(text_list[0], TextType.NORMAL_TEXT))
+            new_nodes.append(TextNode(image[0], TextType.IMAGE, image[1]))
+            node.text = text_list[1]
+
+    return new_nodes
+
+
+def split_nodes_link(old_nodes):
+    new_nodes = []
+    for node in old_nodes:
+        extracted_links = extract_markdown_links(node.text)
+        if not extracted_links:
+            new_nodes.append(node)
+            continue
+        for link in extracted_links:
+            text_list = node.text.split(f"[{link[0]}]({link[1]})")
+            if text_list[0] != "":
+                new_nodes.append(TextNode(text_list[0], TextType.NORMAL_TEXT))
+            new_nodes.append(TextNode(link[0], TextType.LINK, link[1]))
+            node.text = text_list[1]
+        if node.text != "":
+            new_nodes.append(TextNode(node.text, TextType.NORMAL_TEXT))
+
     return new_nodes
