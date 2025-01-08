@@ -176,16 +176,6 @@ def markdown_block_node_to_text(markdown, block_type):
             return markdown
 
 
-def extract_heading_level(markdown):
-    # Find all matches at the start of the line
-    match = re.match(r"^(#+) ", markdown)
-    if match:
-        num_hashes = len(match.group(1))
-        text = markdown[num_hashes + 1 :]
-        return num_hashes, text
-    return None, markdown  # Return some default if no match
-
-
 def process_blockquote_text(text):
     lines = text.split("\n")
     children = []
