@@ -3,7 +3,7 @@ import unittest
 from extract_markdown import extract_markdown_images, extract_markdown_links
 
 
-class TestHTMLNode(unittest.TestCase):
+class TestExtractMarkdownImagesAndLinks(unittest.TestCase):
     def test_extract_images(self):
         text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
         extracted_images = extract_markdown_images(text)
