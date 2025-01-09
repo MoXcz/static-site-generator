@@ -86,3 +86,21 @@ this is paragraph text
             html,
             "<div><blockquote>This is a blockquote block</blockquote><p>this is paragraph text</p></div>",
         )
+
+    def test_codeblock(self):
+        md = """
+    ```
+    This is a code block
+    ```
+
+    this is paragraph text
+
+    """
+
+        node = markdown_to_html_node(md)
+        print(node)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><pre><code>This is a code block</code></pre><p>this is paragraph text</p></div>",
+        )

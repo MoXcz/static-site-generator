@@ -98,9 +98,10 @@ def block_node_to_html_node(block_node):
             return ParentNode("ol", list_items, None)
         case BlockType.CODE:
             code_node = ParentNode(
-                "code", markdown_block_node_to_text(block_node.text, "code")
+                "code",
+                text_to_children(markdown_block_node_to_text(block_node.text, "code")),
             )
-            return ParentNode("pre", None, [code_node])
+            return ParentNode("pre", [code_node])
         case BlockType.H:
             # Match any hashes #
             match = re.match(r"^(#+) ", block_node.text)
@@ -123,7 +124,7 @@ def block_node_to_html_node(block_node):
 def markdown_block_node_to_text(markdown, block_type):
     match block_type:
         case "code":
-            return markdown.replace("```", "")
+            return markdown.replace("```", "").strip()
         case "quote":
             return markdown[2:]  # Remove "> " from text
         case "unordered_list_item":
