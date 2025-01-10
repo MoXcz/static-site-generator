@@ -26,4 +26,3 @@ def src_to_dir(src, dir):
                 copy(entry, dir)
             elif not path.isfile(entry):
                 src_to_dir(entry, dir)
-    print("It worked!")
