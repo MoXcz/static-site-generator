@@ -98,7 +98,6 @@ this is paragraph text
     """
 
         node = markdown_to_html_node(md)
-        print(node)
         html = node.to_html()
         self.assertEqual(
             html,
