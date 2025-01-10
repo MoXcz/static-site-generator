@@ -103,13 +103,8 @@ def block_node_to_html_node(block_node):
             )
             return ParentNode("pre", [code_node])
         case BlockType.H:
-            # Match any hashes #
-            match = re.match(r"^(#+) ", block_node.text)
-            if match:
-                num_hashes = len(match.group(1))
-                # Remove all hashes by returning the string without them
-                text = block_node.text[num_hashes + 1 :]  # +1 because of " "
-                return ParentNode(f"h{num_hashes}", text_to_children(text))
+            text, num_hashes = process_heading_text(block_node.text)
+            return ParentNode(f"h{num_hashes}", text_to_children(text))
         case BlockType.P:
             return ParentNode(
                 "p",
@@ -144,6 +139,18 @@ def process_blockquote_text(text):
         if line.strip() != "":
             new_lines.append(markdown_block_node_to_text(line, "quote"))
     return " ".join(new_lines)
+
+
+def process_heading_text(markdown):
+    # Match any hashes #
+    match = re.match(r"^(#+) ", markdown)
+    if match and len(match.group(1)) <= 6:
+        num_hashes = len(match.group(1))
+        # Remove all hashes by returning the string without them
+        text = markdown[num_hashes + 1 :]  # +1 because of " "
+    else:
+        raise ValueError(f"Not valid heading: {markdown}")
+    return text, num_hashes
 
 
 # This helper function is used to convert text (without Markdown characters)
