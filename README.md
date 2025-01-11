@@ -2,13 +2,13 @@
 
 This program converts Markdown documents into static web pages.
 
-The static files (like images, CSS files, etc) generation must be defined
-inside the `static/` directory. In the example provided it has an `index.css`
-for the styling and an `images/` directory for all images used.
+The static files (like images, CSS files, etc) must be inside the `static/`
+directory. In the example provided it has an `index.css` for the styling and
+an `images/` directory for all images used.
 
-The generation is done following this steps:
+The generation is done following these steps:
 1. Copy all static files inside `static/` to `public/`
-2. *Recursively* generate `html` files from `content/` to `public/`:
+2. *Recursively* generate `html` files from `md` files inside `content/` to `public/`:
     1. Divide Markdown file contents into *blocks*
     2. Convert *blocks* into `ParentNode`s (header, paragraph, lists, code,
        ordered list, unordered list and quote)
@@ -19,7 +19,7 @@ The generation is done following this steps:
     6. Replace page title with the header 1 (`<h1>` or `#`)
 
 Note that the *order* of files is preserved, so `content/` must be nested
-exactly as the files are referred to inside the Markdown elements.
+exactly as the files are referred to inside the Markdown files.
 
 ## Installation
 
