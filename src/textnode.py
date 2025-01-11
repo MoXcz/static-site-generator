@@ -74,6 +74,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         for i in range(len(text_list)):
             if text_list[i] == "":
                 continue
+            # Expected text_list: [text, bold, text, bold, text]
             if i % 2 == 0:
                 new_nodes.append(TextNode(text_list[i], TextType.NORMAL_TEXT))
             else:
