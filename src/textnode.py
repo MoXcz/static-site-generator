@@ -136,7 +136,7 @@ def text_to_textnodes(text):
             split_nodes_delimiter(
                 split_nodes_delimiter(
                     split_nodes_delimiter([node], "**", TextType.BOLD_TEXT),
-                    "*",
+                    "_",
                     TextType.ITALIC_TEXT,
                 ),
                 "`",
