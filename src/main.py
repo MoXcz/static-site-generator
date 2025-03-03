@@ -7,12 +7,11 @@ def main():
     basepath = "/"
     if len(sys.argv) > 1:
         basepath = sys.argv[1]
-    dir_public = "docs/"  # delete this one
+    public_path = "docs/"
     dir_static = "static/"  # copy to this one
-    src_to_dir(dir_static, dir_public)
+    src_to_dir(dir_static, public_path)
     content_path = "content/"
     template_file = "template.html"
-    public_path = "docs/"
     generate_pages_recursive(content_path, template_file, public_path, basepath)
 
 
