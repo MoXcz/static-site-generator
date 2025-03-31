@@ -2,7 +2,7 @@ import re
 from enum import Enum
 
 from block_markdown import block_to_block_type, markdown_to_blocks
-from htmlnode import ParentNode
+from htmlnode import ParentNode, LeafNode
 from textnode import text_node_to_html_node, text_to_textnodes
 
 
@@ -99,7 +99,7 @@ def block_node_to_html_node(block_node):
         case BlockType.CODE:
             code_node = ParentNode(
                 "code",
-                text_to_children(markdown_block_node_to_text(block_node.text, "code")),
+                [LeafNode(None, markdown_block_node_to_text(block_node.text, "code"))],
             )
             return ParentNode("pre", [code_node])
         case BlockType.H:

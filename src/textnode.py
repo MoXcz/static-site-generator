@@ -69,7 +69,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         text_list = node.text.split(delimiter)
         if len(text_list) % 2 == 0:
             raise Exception(
-                f"Delimter Error: The text could not be delmited with the provided delimiter: {delimiter}"
+                f"Delimiter Error: The text could not be delimited with the provided delimiter: {delimiter}"
             )
         for i in range(len(text_list)):
             if text_list[i] == "":
